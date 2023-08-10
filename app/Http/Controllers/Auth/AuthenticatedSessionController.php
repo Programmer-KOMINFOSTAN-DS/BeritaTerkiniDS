@@ -25,9 +25,18 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $request->validate([
+            
+            'g-recaptcha-response' => 'required|captcha'
+        ],
+        [
+            'g-recaptcha-response.required' => 'Pastikan Centang Konfirmasi Anda Bukan Robot'
+        ]);
         $request->authenticate();
-
+       
         $request->session()->regenerate();
+        
+        
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

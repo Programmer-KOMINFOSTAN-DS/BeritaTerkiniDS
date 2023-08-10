@@ -10,6 +10,9 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+        
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -32,5 +35,12 @@
                 {{ $slot }}
             </main>
         </div>
+       <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+       <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+       <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+       
+       <script>new DataTable('#datatables');</script>
+
+
     </body>
 </html>
