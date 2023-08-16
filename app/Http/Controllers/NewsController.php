@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
-use App\Models\Tanggapan;
 use Illuminate\Http\Request;
-use App\Models\Tanggapan as ModelsTanggapan;
-
-class GrafikdtController extends Controller
+class NewsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $data_tanggapan=Tanggapan::all();
-       
+
+        $news = News::orderBy('tanggal', 'desc')->get();
+        return view('landingpage', compact('news'));
+
     }
 
     /**
@@ -65,17 +64,5 @@ class GrafikdtController extends Controller
     {
         //
     }
-    public function grafik()
-    {
-        $datapos =Tanggapan::pluck('positive')->all();
-        $datanev =Tanggapan::pluck('negative')->all();
 
-        return ['x'=>$datapos, 'y'=>$datanev];
-
-    }
-    public function showLandingPage(){
-        $news = News::orderBy('tanggal', 'desc')->get();
-        $datagrafik = $this->grafik();
-        return view('landingpage', compact('datagrafik','news'));
-    }
 }
