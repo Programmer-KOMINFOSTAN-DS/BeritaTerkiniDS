@@ -6,7 +6,7 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Datatables;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Services\DataTable;
 

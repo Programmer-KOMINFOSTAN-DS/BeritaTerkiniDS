@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
@@ -31,6 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //berita
     Route::get('/news', [NewsController::class, 'index'])->name('news.index');
     Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
     Route::post('/news/store', [NewsController::class, 'store'])->name('news.store');
@@ -42,6 +44,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/news/destroy/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
 
     Route::get('/news/json', [NewsController::class, 'json'])->name('news.json');
+
+    //komentar
+    Route::get('/komentar', [KomentarController::class, 'index'])->name('komentar.index');
+    Route::get('/komentar/json', [KomentarController::class, 'json'])->name('komentar.json');
+    Route::get('/komentar/destroy/{id}', [KomentarController::class, 'destroy'])->name('komentar.destroy');
    
 });
 

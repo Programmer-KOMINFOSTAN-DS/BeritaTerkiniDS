@@ -38,11 +38,11 @@
                 <td>{{ $value->judul }}</td>
                 
                 <td><img src="{{ asset('gambarberita/'.$value->gambar) }}" alt="" style="width: 80px;"></td>
-                <td>{{ $value->tanggal }}</td>
+                <td >{{ $value->tanggal }}</td>
                 <td>{{ $value->deskripsi }}</td>
                 <td>{{ $value->sumber }}</td>               
                   <td>
-                    <a href="/news/destroy/{{$value->id}}" class="btn btn-danger"> Hapus </a>      <a href="/news/edit/{{$value->id}}" class="btn btn-info"> Edit </a>
+                    <a href="/news/destroy/{{$value->id}}" class="btn btn-danger"> Hapus </a>   <a href="/news/edit/{{$value->id}}" class="btn btn-info"> Edit </a>
                    
                     
                 </td> 
