@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KomentarController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
@@ -27,7 +28,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -49,7 +50,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/komentar', [KomentarController::class, 'index'])->name('komentar.index');
     Route::get('/komentar/json', [KomentarController::class, 'json'])->name('komentar.json');
     Route::get('/komentar/destroy/{id}', [KomentarController::class, 'destroy'])->name('komentar.destroy');
+    
+    //user/roles
+    Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/user/json', [UserController::class, 'json'])->name('user.json');
+    Route::get('/user/edit/{id}', [UserController::class, 'edit'])->name('user.edit');
+    Route::post('/user/update/{id}', [UserController::class, 'update'])->name('user.update');
+
+    Route::get('/user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+    //check status
+    Route::get('/user/status/update/{id}', [UserController::class, 'status'])->name('user.status.update');
+
+    //update password
+    Route::get('/user/editpassword/{id}', [UserController::class, 'editpassword'])->name('user.editpassword');
+    Route::post('/user/updatepassword/{id}', [UserController::class, 'updatepassword'])->name('user.updatepassword');
+
+    
+
    
 });
+
 
 require __DIR__.'/auth.php';

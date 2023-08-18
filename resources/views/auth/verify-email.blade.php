@@ -4,22 +4,22 @@
     </div>
 
     
-    {{-- @if (session('status') == 'verification-link-sent')
+    @if (session('status') == 'verification-link-sent')
         <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
             {{ __('Tautan verifikasi telah dikirim ke alamat email yang Anda berikan saat pendaftaran.') }}
         </div>
-    @endif --}}
+    @endif
 
     <div class="mt-4 flex items-center justify-between">
-        {{-- <form method="POST" action="{{ route('verification.send') }}">
+        <form method="POST" action="{{ route('verification.send') }}">
             @csrf
 
             <div>
                 <x-primary-button>
-                    {{ __('Kirim Verifikasi ke Email') }}
+                    {{ __('Kirim Ulang Verifikasi Email') }}
                 </x-primary-button>
             </div>
-        </form> --}}
+        </form>
 
         
 

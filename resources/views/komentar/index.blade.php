@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Berita') }}
+            {{ __('HALAMAN KOMENTAR') }}
         </h2>
     </x-slot>
 
@@ -24,6 +24,7 @@
                                     <th>Nama</th>
                                     <th>Komentar</th>
                                     <th>Klasifikasi</th>
+                                    <th>katakunci</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -37,6 +38,7 @@
                                         <td>{{ $value->nama }}</td>
                                         <td>{{ $value->komentar }}</td>
                                         <td>{{ $value->klasifikasi }}</td>
+                                        <td>{{ $value->katakunci }}</td>
                                         <td>
                                             <a href="/komentar/destroy/{{ $value->id }}" class="btn btn-danger"> Hapus </a>                                         
                                         </td>

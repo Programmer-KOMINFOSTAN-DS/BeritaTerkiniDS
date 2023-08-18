@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-          Edit &raquo {{ $data->judul }}
+          Form Edit &raquo {{ $data->judul }}
         </h2>
     </x-slot>
 
@@ -20,6 +20,7 @@
                         <div class="form-group mt-3">
                             <label for="tanggal">Masa Jabatan</label>
                             <input value="{{ $data->tanggal }}" type="date" name="tanggal" class="form-control mt-2" id="tanggal">
+                        </div>
                         <div class="form-group mt-3">
                             <label for="gambar" value="{{ $data->gambar }}">Gambar</label>
                             <input  type="file" name="gambar" class="form-control mt-2">

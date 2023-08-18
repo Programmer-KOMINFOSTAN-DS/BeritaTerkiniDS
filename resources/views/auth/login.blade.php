@@ -2,6 +2,11 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    @if(session('error'))
+    <span class="text-danger"> {{ session('error') }}</span>
+        
+    @endif
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
