@@ -18,34 +18,29 @@
                         <table id="datatables" class="table table-bordered data-table">
                             <thead>
                                 <tr>
-                                    <th>No</th>
-                                    <th>Id Berita</th>
-                                    <th>Id User</th>
+                                    <th>ID</th>
+                                    <th>News ID</th>
+                                    <th>User ID</th>
                                     <th>Nama</th>
                                     <th>Komentar</th>
                                     <th>Klasifikasi</th>
-                                    <th>katakunci</th>
-                                    <th>Aksi</th>
+                                    <th>Nilai Sentimen</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $no => $value)
+                                @foreach ($komentar as $comment)
                                     <tr>
-                                        <td>{{ $no + 1 }}</td>
-                                        <td>{{ $value->news_id }}</td>
-    
-                                        <td>{{ $value->user_id }}</td>
-                                        <td>{{ $value->nama }}</td>
-                                        <td>{{ $value->komentar }}</td>
-                                        <td>{{ $value->klasifikasi }}</td>
-                                        <td>{{ $value->katakunci }}</td>
-                                        <td>
-                                            <a href="/komentar/destroy/{{ $value->id }}" class="btn btn-danger"> Hapus </a>                                         
-                                        </td>
-                         </tr>
-            @endforeach
-        </tbody>
-    </table>
+                                        <td>{{ $comment->id }}</td>
+                                        <td>{{ $comment->news_id }}</td>
+                                        <td>{{ $comment->user_id }}</td>
+                                        <td>{{ $comment->nama }}</td>
+                                        <td>{{ $comment->komentar }}</td>
+                                        <td>{{ $comment->klasifikasi }}</td>
+                                        <td>{{ $comment->nilaisentimen }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
 </div>
 
 
@@ -53,4 +48,5 @@
             </div>
         </div>
     </div>
+  
 </x-app-layout>

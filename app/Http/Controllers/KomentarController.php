@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Komentar;
+use PHPInsight\Sentiment;
+use PHPInsight\Autoloader;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
@@ -14,10 +16,39 @@ class KomentarController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Komentar::limit(100)->get();
-        return view('komentar.index',compact('data'));
-   
+        $komentar = Komentar::limit(100)->get();
+
+        require_once app_path("Path/To/PHPInsight/Autoloader.php");
+        Autoloader::register();
+        
+        $sentiment = new Sentiment();
+        
+        foreach ($komentar as $comment) {
+            $text = $comment->komentar;
+            
+            $scores = $sentiment->score($text);
+            $category = $sentiment->categorise($text);
+
+            if ($category == 'pos' || $category == 'neu') {
+                $categoryLabel = 'Positif';
+            } else {
+                $categoryLabel = 'Negatif';
+            }
+
+            Komentar::where('id', $comment->id)->update([
+              
+                'nilaisentimen' => json_encode($scores),
+                'klasifikasi' => $categoryLabel
+            ]);
+        }
+
+        return view('komentar.index', compact('komentar'));
     }
+
+
+
+
+
     public function json()
     {
         return DataTables::of(Komentar::limit(10))->make(true);

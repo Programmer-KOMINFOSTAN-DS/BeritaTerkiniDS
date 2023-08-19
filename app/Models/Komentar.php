@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Komentar extends Model
 {
-    use HasFactory;
+    // Nama tabel di basis data
+    protected $table = 'komentars';
+
+    // Kolom yang dapat diisi (fillable) jika Anda akan menggunakan metode mass assignment
+    protected $fillable = ['komentar'];
 }
