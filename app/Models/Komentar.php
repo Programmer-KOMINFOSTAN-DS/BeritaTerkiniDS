@@ -11,5 +11,5 @@ class Komentar extends Model
     protected $table = 'komentars';
 
     // Kolom yang dapat diisi (fillable) jika Anda akan menggunakan metode mass assignment
-    protected $fillable = ['komentar'];
+    protected $fillable = ['komentar','klasifikasi'];
 }

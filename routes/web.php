@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\GrafikdtController;
+use App\Http\Controllers\KomentarController;
+use App\Http\Controllers\BeritaDetailController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
@@ -18,21 +20,32 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
 
 Route::post('/getkabupaten', [RegisteredUserController::class, 'getkabupaten'])->name('getkabupaten');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/landingpage', [GrafikdtController::class, 'showLandingPage'])->name('landingpage');
+
+Route::middleware('user')->group(function () {
+    
+    Route::post('/komentar', [KomentarController::class, 'store'])->name('Komentar.store');
+    Route::get('detail/DetailBerita/{id}', [BeritaDetailController::class, 'show'])->name('DetailBerita.show');
+});
+
+
+
+
 
 Route::middleware('admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->middleware(['auth', 'verified'])->name('dashboard');
+    
     //berita
     Route::get('/news', [NewsController::class, 'index'])->name('news.index');
     Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');

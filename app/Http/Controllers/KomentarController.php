@@ -17,33 +17,40 @@ class KomentarController extends Controller
     public function index(Request $request)
     {
         $komentar = Komentar::limit(100)->get();
-
+    
         require_once app_path("Path/To/PHPInsight/Autoloader.php");
         Autoloader::register();
-        
+    
         $sentiment = new Sentiment();
-        
+    
         foreach ($komentar as $comment) {
             $text = $comment->komentar;
-            
+    
             $scores = $sentiment->score($text);
-            $category = $sentiment->categorise($text);
+    
+            // Find the highest sentiment score (positive or negative)
+    $highestScore = max($scores);
+    
+    // Determine the classification based on the highest sentiment score
+    $threshold = 0.1; // Adjust the threshold as needed
+    if ($highestScore == $scores['positif']) {
+        $categoryLabel = 'Positif';
+    } elseif ($highestScore == $scores['negatif']) {
+        $categoryLabel = 'Negatif';
+    } else {
+        $categoryLabel = 'Netral';
+    }
 
-            if ($category == 'pos' || $category == 'neu') {
-                $categoryLabel = 'Positif';
-            } else {
-                $categoryLabel = 'Negatif';
-            }
-
+    
             Komentar::where('id', $comment->id)->update([
-              
                 'nilaisentimen' => json_encode($scores),
-                'klasifikasi' => $categoryLabel
+                'klasifikasi' => $categoryLabel,
             ]);
         }
-
+    
         return view('komentar.index', compact('komentar'));
     }
+    
 
 
 
@@ -67,7 +74,21 @@ class KomentarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'news_id' => 'required|exists:news,id',
+            'nama' => 'required|string|max:255',
+            'komentar' => 'required|string',
+        ]);
+
+        $comment = new Komentar();
+        $comment->news_id = $request->input('news_id');
+        $comment->user_id = Auth::id(); // Mengambil ID pengguna yang sedang login
+        $comment->nama = $request->input('nama');
+        $comment->komentar = $request->input('komentar');
+
+        $comment->save();
+
+        return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
     }
 
     /**
