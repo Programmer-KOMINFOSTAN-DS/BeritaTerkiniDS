@@ -38,6 +38,10 @@
        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+       <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+       <!-- Include all compiled plugins (below), or include individual files as needed -->
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
        
        <script>new DataTable('#datatables', {
         order: [[0, 'No']]

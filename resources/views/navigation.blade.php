@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="#page-top"><img src="assets/img/logox.png" alt="..." /></a>
+        <a class="navbar-brand" href="#page-top">
+            <img src="assets/img/logox.png" alt="..." class="d-none d-lg-block" />
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
@@ -12,18 +14,6 @@
                 <li class="nav-item"><a class="nav-link" href="#portfolio">BERITA TERBARU</a></li>
                 
                 <!-- Dropdown for Register and Login -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="authDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Login
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="authDropdown">
-                        <a class="dropdown-item" href="{{ route('register') }}">Register</a>
-                        <a class="dropdown-item" href="{{ route('login') }}">Login</a>
-                    </div>
-                </li>
-                
-                <!-- Dropdown for User Profile and Logout -->
                 @auth
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -42,6 +32,20 @@
                     </div>
                 </li>
                 @endauth
+                
+                <!-- Dropdown for User Profile and Logout -->
+                @guest
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="authDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Login
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="authDropdown">
+                        <a class="dropdown-item" href="{{ route('register') }}">Register</a>
+                        <a class="dropdown-item" href="{{ route('login') }}">Login</a>
+                    </div>
+                </li>
+                @endguest
             </ul>
         </div>
     </div>

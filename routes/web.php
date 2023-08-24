@@ -1,11 +1,14 @@
 <?php
 
+use PHPInsight\Sentiment;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GrafikdtController;
 use App\Http\Controllers\KomentarController;
+use App\Http\Controllers\SentimenController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BeritaDetailController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
@@ -26,6 +29,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 Route::post('/getkabupaten', [RegisteredUserController::class, 'getkabupaten'])->name('getkabupaten');
 
 Route::get('/landingpage', [GrafikdtController::class, 'showLandingPage'])->name('landingpage');
+Route::get('/', [GrafikdtController::class, 'showLandingPage']);
 
 Route::middleware('user')->group(function () {
     
@@ -41,10 +45,19 @@ Route::middleware('admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+   
+    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    // Route::get('/dashboard', function () {
+    //     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    //     return view('dashboard.index');
+    // })->middleware(['auth', 'verified'])->name('dashboard');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/dashboard', [DashboardController::class, 'index','showLandingPage'])->name('dashboard.index');
+        Route::get('/sentimen', [DashboardController::class, 'showLandingPage'])->name('sentimen.index');
+    });
+    
     
     //berita
     Route::get('/news', [NewsController::class, 'index'])->name('news.index');
@@ -72,6 +85,9 @@ Route::middleware('admin')->group(function () {
 
     Route::get('/user/destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy');
 
+    //sentimen
+    
+    Route::get('/sentimen', [SentimenController::class, 'showLandingPage'])->name('sentimen.index');
     //check status
     Route::get('/user/status/update/{id}', [UserController::class, 'status'])->name('user.status.update');
 
