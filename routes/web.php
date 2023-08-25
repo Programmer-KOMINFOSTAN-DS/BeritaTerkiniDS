@@ -33,8 +33,6 @@ Route::post('/getkabupaten', [RegisteredUserController::class, 'getkabupaten'])-
 Route::get('/landingpage', [GrafikdtController::class, 'showLandingPage'])->name('landingpage');
 Route::get('/', [GrafikdtController::class, 'showLandingPage']);
 
-//export pdf
-Route::get('/exportpdf', [UserController::class,'exportpdf'])->name('exportpdf');
 
 Route::middleware(['user'])->group(function () {
     Route::get('detail/DetailBerita/{id}', function ($id) {
