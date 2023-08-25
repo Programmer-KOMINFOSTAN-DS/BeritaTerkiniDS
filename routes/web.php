@@ -1,6 +1,7 @@
 <?php
 
 use PHPInsight\Sentiment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
@@ -25,17 +26,28 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 
 
 
+// Route::get('detail/DetailBerita/{id}', [BeritaDetailController::class, 'show'])->name('DetailBerita.show');
 
 Route::post('/getkabupaten', [RegisteredUserController::class, 'getkabupaten'])->name('getkabupaten');
 
 Route::get('/landingpage', [GrafikdtController::class, 'showLandingPage'])->name('landingpage');
 Route::get('/', [GrafikdtController::class, 'showLandingPage']);
 
-Route::middleware('user')->group(function () {
-    
-    Route::post('/komentar', [KomentarController::class, 'store'])->name('Komentar.store');
-    Route::get('detail/DetailBerita/{id}', [BeritaDetailController::class, 'show'])->name('DetailBerita.show');
+//export pdf
+Route::get('/exportpdf', [UserController::class,'exportpdf'])->name('exportpdf');
+
+Route::middleware(['user'])->group(function () {
+    Route::get('detail/DetailBerita/{id}', function ($id) {
+        $user = Auth::user();
+
+        if ($user && !$user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
+
+        return app()->call(BeritaDetailController::class . '@show', ['id' => $id]);
+    })->name('DetailBerita.show');
 });
+Route::post('/komentar', [KomentarController::class, 'store'])->name('Komentar.store');
 
 
 
@@ -96,7 +108,7 @@ Route::middleware('admin')->group(function () {
     Route::post('/user/updatepassword/{id}', [UserController::class, 'updatepassword'])->name('user.updatepassword');
 
     
-
+    
    
 });
 

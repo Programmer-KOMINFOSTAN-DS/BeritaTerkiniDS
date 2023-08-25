@@ -171,6 +171,7 @@ return [
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
         AzisHapidin\IndoRegion\IndoRegionServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        
     ])->toArray(),
 
     /*
@@ -188,7 +189,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'NoCaptcha' => Anhskohbo\NoCaptcha\Facades\NoCaptcha::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
-        
+ 
     ])->toArray(),
 
 ];

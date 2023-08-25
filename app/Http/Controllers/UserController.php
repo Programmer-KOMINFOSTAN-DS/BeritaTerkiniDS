@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use PDF;
 use Yajra\DataTables\Datatables;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
@@ -26,6 +26,15 @@ class UserController extends Controller
     {
         return DataTables::of(User::limit(10))->make(true);
     }
+
+    //  public function exportpdf()
+    // {
+    //     $data = Peserta::all();
+
+    //     view()->share('data' , $data);
+    //     $pdf = PDF::loadview('pdf.index');
+    //     return $pdf->download('list.pdf');
+    // }
 
 
     /**

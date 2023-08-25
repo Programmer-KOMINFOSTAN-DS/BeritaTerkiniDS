@@ -15,7 +15,7 @@
                             {{ Session::get('success') }}
                         </div>
                         @endif
-                        <table id="datatables" class="table table-bordered data-table">
+                        <table id="datatables" class="table table-bordered data-table ">
                             <thead>
                                 <tr>
                                     <th>ID</th>
