@@ -18,7 +18,7 @@
                                 placeholder="Enter judul Berita">
                         </div>
                         <div class="form-group mt-3">
-                            <label for="tanggal">Masa Jabatan</label>
+                            <label for="tanggal">Tanggal</label>
                             <input value="{{ $data->tanggal }}" type="date" name="tanggal" class="form-control mt-2" id="tanggal">
                         </div>
                         <div class="form-group mt-3">
@@ -27,10 +27,9 @@
                         </div>
                         <div class="form-group mt-3">
                             <label for="deskripsi">Deskripsi</label>
-                            <input value="{{ $data->deskripsi }}" type="text" name="deskripsi" class="form-control mt-2" id="deskripsi"
-                                placeholder="Enter deskripsi Berita">
+                            <textarea name="deskripsi" class="form-control mt-2" id="deskripsi" placeholder="Enter deskripsi Berita"></textarea>
                         </div>
-                        <div class="form-group mt-3">
+                         <div class="form-group mt-3">
                             <label for="sumber">Sumber</label>
                             <input value="{{ $data->sumber }}" type="text" name="sumber" class="form-control mt-2" id="sumber"
                                 placeholder="Enter sumber Berita">

@@ -37,9 +37,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
         
         
-
-        return redirect()->intended(RouteServiceProvider::HOME);
-    }
+        $request->user()->sendEmailVerificationNotification();
+        return redirect()->route('cekemail');    }
 
     /**
      * Destroy an authenticated session.

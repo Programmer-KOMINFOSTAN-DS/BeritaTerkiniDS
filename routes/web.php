@@ -11,6 +11,8 @@ use App\Http\Controllers\SentimenController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BeritaDetailController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\CekemailController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -100,5 +102,5 @@ Route::middleware('admin')->group(function () {
    
 });
 
-
+Route::get('/cekemail', [CekemailController::class, 'index'])->name('cekemail');
 require __DIR__.'/auth.php';

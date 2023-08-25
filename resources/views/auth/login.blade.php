@@ -56,6 +56,7 @@
             @endif
 
             <x-primary-button class="ml-3">
+                   <!-- <a href="{{ route('cekemail') }}"> -->
                 {{ __('Log in') }}
             </x-primary-button>
         </div>

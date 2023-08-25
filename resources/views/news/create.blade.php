@@ -18,7 +18,7 @@
                                     placeholder="Enter judul Berita">
                             </div>
                             <div class="form-group mt-3">
-                                <label for="tanggal">Masa Jabatan</label>
+                                <label for="tanggal">Tanggal</label>
                                 <input type="date" name="tanggal" class="form-control mt-2" id="tanggal">
                             <div class="form-group mt-3">
                                 <label for="gambar">Gambar</label>
@@ -26,8 +26,8 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="deskripsi">Deskripsi</label>
-                                <input type="text" name="deskripsi" class="form-control mt-2" id="deskripsi"
-                                    placeholder="Enter deskripsi Berita">
+                                <textarea name="deskripsi" class="form-control mt-2" id="deskripsi"
+                                 placeholder="Enter deskripsi Berita"></textarea>
                             </div>
                             <div class="form-group mt-3">
                                 <label for="sumber">Sumber</label>
