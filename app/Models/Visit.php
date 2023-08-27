@@ -6,17 +6,8 @@ use Coderflex\Laravisit\Concerns\HasVisits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class News extends Model
+class Visit extends Model implements CanVisit
 {
     use HasFactory;
     use HasVisits;
-    protected $table = 'news';
-
-    protected $fillable = [
-        'judul',
-        'gambar',
-        'tanggal',
-        'deskripsi',
-        'sumber'
-    ];
 }

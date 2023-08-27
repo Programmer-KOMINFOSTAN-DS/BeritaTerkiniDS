@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Komentar extends Model
+
 {
+    
+
     // Nama tabel di basis data
     protected $table = 'komentars';
 

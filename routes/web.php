@@ -11,6 +11,7 @@ use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\SentimenController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BeritaDetailController;
+use App\Http\Controllers\VisitController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 /*
@@ -55,6 +56,10 @@ Route::middleware('admin')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    //visitor
+    Route::get('/visitor', [VisitController::class, 'index'])->name('visitor.index');
+    Route::get('/visitor/json', [VisitController::class, 'json'])->name('visitor.json');
    
     // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     // Route::get('/dashboard', function () {

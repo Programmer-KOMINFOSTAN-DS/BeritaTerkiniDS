@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\News;
 use App\Models\Komentar;
 use Illuminate\Http\Request;
+use Coderflex\Laravisit\Models\Visit;
 
 
 class GrafikdtController extends Controller
@@ -85,10 +86,41 @@ class GrafikdtController extends Controller
         // Menyimpan nilai x dan y dalam variabel
          return['x'=> $xtotal, 'y'=>$ytotal, 'z'=>$ztotal];
     }
+
+    // public function showLandingPage(Request $request)
+    // {
+    //     $news = News::orderBy('tanggal', 'desc')->get();
+    //     $datagrafik = $this->grafik();
+    //     // Mendapatkan IP address dari pengunjung
+    //     $visitorIp = $request->ip();
+    //     // die(print_r($visitorIp));
+    //     // Simpan informasi kunjungan ke database
+    //     Visit::create([
+    //         'ip_address' => $visitorIp,
+    //         // tambahkan field lain yang diperlukan
+    //     ]);
+    //     return view('landingpage', compact('datagrafik', 'news'));
+    // }
     
-    public function showLandingPage(){
+    public function showLandingPage(Request $request)
+    {
         $news = News::orderBy('tanggal', 'desc')->get();
         $datagrafik = $this->grafik();
-        return view('landingpage', compact('datagrafik','news'));
+
+        // Mendapatkan IP address dari pengunjung
+        $visitorIp = $request->ip();
+
+        // Cek apakah IP address sudah ada dalam database
+        $existingVisit = Visit::where('ip_address', $visitorIp)->first();
+
+        if (!$existingVisit) {
+            // IP address belum ada, maka simpan informasi kunjungan ke database
+            Visit::create([
+                'ip_address' => $visitorIp,
+                // tambahkan field lain yang diperlukan
+            ]);
+        }
+
+        return view('landingpage', compact('datagrafik', 'news'));
     }
 }

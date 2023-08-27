@@ -17,6 +17,7 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
+      
         $data = News::limit(100)->get();
         return view('news.index',compact('data'));
    
@@ -69,9 +70,12 @@ class NewsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show( $id)
+    public function show(News $news)
     {
-       
+      
+            $news->visit();
+          
+        
     }
 
     /**
@@ -133,4 +137,5 @@ class NewsController extends Controller
 
         return redirect()->route('news.index')->with('success', 'Data Berhasil Dihapus');
     }
+    
 }
