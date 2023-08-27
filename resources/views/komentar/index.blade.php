@@ -18,25 +18,29 @@
                         <table id="datatables" class="table table-bordered data-table ">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>No</th>
                                     <th>News ID</th>
                                     <th>User ID</th>
                                     <th>Nama</th>
                                     <th>Komentar</th>
                                     <th>Klasifikasi</th>
                                     <th>Nilai Sentimen</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($komentar as $comment)
+                                @foreach ($komentar as $no => $comment)
                                     <tr>
-                                        <td>{{ $comment->id }}</td>
+                                        <td>{{$no+1}}</td> 
+                                        
                                         <td>{{ $comment->news_id }}</td>
                                         <td>{{ $comment->user_id }}</td>
                                         <td>{{ $comment->nama }}</td>
                                         <td>{{ $comment->komentar }}</td>
                                         <td>{{ $comment->klasifikasi }}</td>
                                         <td>{{ $comment->nilaisentimen }}</td>
+                                        <td>
+                                            <a href="/komentar/destroy/{{$comment->id}}" class="btn btn-danger"> Hapus </a> 
                                     </tr>
                                 @endforeach
                             </tbody>

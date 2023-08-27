@@ -18,7 +18,7 @@
                                     placeholder="Enter judul Berita">
                             </div>
                             <div class="form-group mt-3">
-                                <label for="tanggal">Masa Jabatan</label>
+                                <label for="tanggal">Tanggal</label>
                                 <input type="date" name="tanggal" class="form-control mt-2" id="tanggal">
                             <div class="form-group mt-3">
                                 <label for="gambar">Gambar</label>

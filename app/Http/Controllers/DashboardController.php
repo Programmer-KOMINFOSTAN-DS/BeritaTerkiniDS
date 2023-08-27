@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use App\Models\User;
+use App\Models\Komentar;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Komentar;
-use App\Models\News;
+use Coderflex\Laravisit\Models\Visit;
+
 
 class DashboardController extends Controller
 {
@@ -21,9 +23,10 @@ class DashboardController extends Controller
         $totalkomentar = $this->getCommentCount();
         $totalberita = $this->getNewsCount();
         $totaluser = $this->getUserCount();
+        $totalvisitor = $this->getVisitorCount();
         // $visitorCount = $this->getVisitorCount();
 
-        return view('dashboard.index', compact('totalkomentar', 'totalberita', 'totaluser','komentarData','datagrafik','news'));
+        return view('dashboard.index', compact('totalkomentar', 'totalberita', 'totaluser','komentarData','datagrafik','news','totalvisitor'));
     }
 
     private function getCommentCount()
@@ -36,9 +39,14 @@ class DashboardController extends Controller
         return News::count();
     }
 
-    private function getUserCount()
+    private function getUserCount() 
     {
         return User::count();
+    }
+
+    private function getVisitorCount()
+    {
+        return Visit::count();
     }
 
     // private function getVisitorCount()

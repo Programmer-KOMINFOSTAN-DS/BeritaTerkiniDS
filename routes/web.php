@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VisitController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GrafikdtController;
 use App\Http\Controllers\KomentarController;
@@ -68,7 +69,10 @@ Route::middleware('admin')->group(function () {
         Route::get('/sentimen', [DashboardController::class, 'showLandingPage'])->name('sentimen.index');
     });
     
-    
+    //visitor
+    Route::get('/visitor', [VisitController::class, 'index'])->name('visitor.index');
+    Route::get('/visitor/json', [VisitController::class, 'json'])->name('visitor.json');
+
     //berita
     Route::get('/news', [NewsController::class, 'index'])->name('news.index');
     Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');

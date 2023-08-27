@@ -8,22 +8,26 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('visitors', function (Blueprint $table) {
+        Schema::create('laravisits', function (Blueprint $table) {
             $table->id();
-            $table->string('ip_address');
-            $table->string('user')->nullable();
+            $table->ipAddress('ip_address'); // Tambahkan kolom ip_address
+            
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('visitors');
+        Schema::dropIfExists('laravisits');
     }
 };

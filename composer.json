@@ -9,6 +9,7 @@
         "anhskohbo/no-captcha": "^3.5",
         "azishapidin/indoregion": "*",
         "barryvdh/laravel-dompdf": "^2.0",
+        "coderflexx/laravisit": "^1.4",
         "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",

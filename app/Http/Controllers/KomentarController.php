@@ -7,6 +7,7 @@ use PHPInsight\Sentiment;
 use PHPInsight\Autoloader;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class KomentarController extends Controller
@@ -123,6 +124,6 @@ class KomentarController extends Controller
         $post   = Komentar::find($id);
         $post->delete();
 
-        return redirect()->route('komentar.index')->with('success', 'Data Berhasil Dihapus');
+        return redirect()->route('komentar.index')->with('success', 'Komentar Berhasil Dihapus');
     }
 }
