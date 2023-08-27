@@ -66,18 +66,19 @@
                         <div class="p-2 text-center">
                             <h6>KOMENTAR</h6>
                         </div>
-                        <form action="{{ route('Komentar.store') }}" method="POST">
+                        <form action="{{ route('Komentar.post') }}" method="POST">
                             @csrf
+                            <input type="hidden" name="news_id" value="{{$news->id}}"/>
                             <div class="mt-3 d-flex flex-row align-items-center p-1 form-color">
-                                <input type="text" class="form-control" placeholder="Enter your comment...">
+                                <input type="text" name="komentar" class="form-control" placeholder="Enter your comment...">
                                 <button type="submit" class="btn btn-primary" data-toggle="button" aria-pressed="false"
-                                    autocomplete="off">Kirim</button>
+                                    autocomplete="off" id="btn-kirim">Kirim</button>
                             </div>
                         </form>
                         <div class="mt-2">
                             <div class="card custom-card">
                                 <div class="p-3">
-                                    @foreach ($berita as $comment)
+                                    @foreach ($berita->sortByDesc('created_at') as $comment)
                                         <div class="comment border p-3 mb-3">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <div class="d-flex flex-row align-items-center">
@@ -181,6 +182,7 @@
     <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
     <script src="{{ asset('https://cdn.startbootstrap.com/sb-forms-latest.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
 </body>
 
 </html>

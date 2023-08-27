@@ -7,7 +7,9 @@ use PHPInsight\Sentiment;
 use PHPInsight\Autoloader;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\DB;
 
 class KomentarController extends Controller
 {
@@ -16,43 +18,68 @@ class KomentarController extends Controller
      */
     public function index(Request $request)
     {
-        $komentar = Komentar::limit(100)->get();
-    
+        // $komentardesc = Komentar::orderBy('created_at', 'desc')->limit(100)->get();
+        $komentar = Komentar::orderBy('created_at', 'desc')->limit(100)->get();
         require_once app_path("Path/To/PHPInsight/Autoloader.php");
         Autoloader::register();
-    
+
         $sentiment = new Sentiment();
-    
+
         foreach ($komentar as $comment) {
             $text = $comment->komentar;
-    
-            $scores = $sentiment->score($text);
-    
-            // Find the highest sentiment score (positive or negative)
-    $highestScore = max($scores);
-    
-    // Determine the classification based on the highest sentiment score
-    $threshold = 0.1; // Adjust the threshold as needed
-    if ($highestScore == $scores['positif']) {
-        $categoryLabel = 'Positif';
-    } elseif ($highestScore == $scores['negatif']) {
-        $categoryLabel = 'Negatif';
-    } else {
-        $categoryLabel = 'Netral';
-    }
 
-    
+            $scores = $sentiment->score($text);
+
+            // Find the highest sentiment score (positive or negative)
+            $highestScore = max($scores);
+
+            // Determine the classification based on the highest sentiment score
+            $threshold = 0.1; // Adjust the threshold as needed
+            if ($highestScore == $scores['positif']) {
+                $categoryLabel = 'Positif';
+            } elseif ($highestScore == $scores['negatif']) {
+                $categoryLabel = 'Negatif';
+            } else {
+                $categoryLabel = 'Netral';
+            }
+
+
             Komentar::where('id', $comment->id)->update([
                 'nilaisentimen' => json_encode($scores),
                 'klasifikasi' => $categoryLabel,
             ]);
         }
-    
+
         return view('komentar.index', compact('komentar'));
     }
-    
 
+    private function analyzeSentiment($text)
+    {
 
+        require_once app_path("Path/To/PHPInsight/Autoloader.php");
+        Autoloader::register();
+
+        $sentiment = new Sentiment();
+
+        $scores = $sentiment->score($text);
+        $highestScore = max($scores);
+
+        $threshold = 0.1; // Adjust the threshold as needed
+        if ($highestScore == $scores['positif']) {
+            $categoryLabel = 'Positif';
+        } elseif ($highestScore == $scores['negatif']) {
+            $categoryLabel = 'Negatif';
+        } else {
+            $categoryLabel = 'Netral';
+        }
+
+        $result = [
+            'klasifikasi' => $categoryLabel,
+            'scores' => $scores,
+        ];
+
+        return $result;
+    }
 
 
 
@@ -90,6 +117,36 @@ class KomentarController extends Controller
 
         return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
     }
+
+    public function postkomentar(Request $request)
+    {
+        //dd($request->all());
+        $komentardesc = Komentar::orderBy('created_at', 'desc')->get()->reverse();
+        $comment = new Komentar();
+        // $komentar = Komentar::create($request->all());
+
+        // $request->request->add(['user_id' => auth()->user()->id]);
+        // $request->request->add(['nama' => auth()->user()->nama_lengkap]);
+        $comment->user_id = auth()->user()->id;
+        $comment->nama = auth()->user()->nama_lengkap;
+        $latestNews = News::latest()->first();
+        $news_id = $latestNews ? $latestNews->id : null;
+        $komentarData = Komentar::select('klasifikasi')->get();
+        //dd($request->all());
+        $comment->news_id = $news_id;
+        $comment->komentar = $request->input('komentar');
+        $sentiment = $this->analyzeSentiment($comment->komentar); // Analisis sentimen komentar
+        $comment->klasifikasi = $sentiment['klasifikasi'];
+        $comment->nilaisentimen = json_encode($sentiment['scores']);
+
+        $comment->save();
+
+
+        //return redirect()->back()->with(compact('komentar'));
+
+        return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
+    }
+
 
     /**
      * Display the specified resource.

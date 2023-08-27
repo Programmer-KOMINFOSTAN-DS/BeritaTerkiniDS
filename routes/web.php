@@ -47,8 +47,7 @@ Route::middleware(['user'])->group(function () {
     })->name('DetailBerita.show');
 });
 Route::post('/komentar', [KomentarController::class, 'store'])->name('Komentar.store');
-
-
+Route::post('/postkomentar', [KomentarController::class, 'postkomentar'])->name('Komentar.post');
 
 
 
