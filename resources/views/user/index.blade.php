@@ -20,7 +20,9 @@
             <tr>
                 <th>No</th>
                 <th>Nama</th>
+                
                 <th>Email</th>
+                <th>Verified Status</th>            
                 <th>Roles</th>            
                 <th>Status</th>            
                 <th>Aksi</th>               
@@ -34,6 +36,7 @@
                 
                 
                 <td >{{ $value->email }}</td>
+                <td>{{ $value->email_verified_at }}</td>
                 <td>{{ $value->roles }}</td>
                 <td>
                     <a href="/user/status/update/{{$value->id}}" class="btn btn-sm btn-{{ $value->status ? 'success' : 'danger' }}">
