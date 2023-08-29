@@ -23,4 +23,5 @@ class Komentar extends Model
     {
         return $this->belongsTo(News::class, 'news_id', 'id');
     }
+    
 }

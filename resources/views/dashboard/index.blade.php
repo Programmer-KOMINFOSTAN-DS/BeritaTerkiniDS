@@ -44,7 +44,7 @@
                             <span class="font-bold">BANYAK VISITOR</span>
                         </div>
                         <div class="text-xl text-yellow-500 dark:text-yellow-300">
-                            12412
+                            {{ $totalvisitor }}
                         </div>
                     </div>
                 </div>

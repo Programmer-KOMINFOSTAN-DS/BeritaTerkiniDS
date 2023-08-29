@@ -34,13 +34,13 @@ class KomentarController extends Controller
             $highestScore = max($scores);
 
             // Determine the classification based on the highest sentiment score
-            $threshold = 0.1; // Adjust the threshold as needed
-            if ($highestScore == $scores['positif']) {
-                $categoryLabel = 'Positif';
-            } elseif ($highestScore == $scores['negatif']) {
-                $categoryLabel = 'Negatif';
-            } else {
+            $threshold = 1.0; // Adjust the threshold as needed
+            if ($highestScore == $scores['netral']) {
                 $categoryLabel = 'Netral';
+            } elseif ($highestScore == $scores['positif']) {
+                $categoryLabel = 'Positif';
+            } else {
+                $categoryLabel = 'Negatif';
             }
 
 
@@ -64,13 +64,13 @@ class KomentarController extends Controller
         $scores = $sentiment->score($text);
         $highestScore = max($scores);
 
-        $threshold = 0.1; // Adjust the threshold as needed
-        if ($highestScore == $scores['positif']) {
-            $categoryLabel = 'Positif';
-        } elseif ($highestScore == $scores['negatif']) {
-            $categoryLabel = 'Negatif';
-        } else {
+        $threshold = 1.0; // Adjust the threshold as needed
+        if ($highestScore == $scores['netral']) {
             $categoryLabel = 'Netral';
+        } elseif ($highestScore == $scores['positif']) {
+            $categoryLabel = 'Positif';
+        } else {
+            $categoryLabel = 'Negatif';
         }
 
         $result = [
@@ -107,45 +107,44 @@ class KomentarController extends Controller
             'komentar' => 'required|string',
         ]);
 
+        $news = News::findOrFail($request->input('news_id'));
+
         $comment = new Komentar();
-        $comment->news_id = $request->input('news_id');
-        $comment->user_id = Auth::id(); // Mengambil ID pengguna yang sedang login
         $comment->nama = $request->input('nama');
         $comment->komentar = $request->input('komentar');
 
-        $comment->save();
+        // Menggunakan relasi untuk menyimpan komentar pada berita yang sesuai
+        $news->komentars()->save($comment);
 
         return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
     }
 
     public function postkomentar(Request $request)
     {
-        //dd($request->all());
-        $komentardesc = Komentar::orderBy('created_at', 'desc')->get()->reverse();
-        $comment = new Komentar();
-        // $komentar = Komentar::create($request->all());
+        $request->validate([
+            'news_id' => 'required|exists:news,id',
+            'komentar' => 'required|string',
+        ]);
 
-        // $request->request->add(['user_id' => auth()->user()->id]);
-        // $request->request->add(['nama' => auth()->user()->nama_lengkap]);
+        // Mengambil berita berdasarkan ID yang ada dalam form
+        $news = News::findOrFail($request->input('news_id'));
+
+        $comment = new Komentar();
         $comment->user_id = auth()->user()->id;
         $comment->nama = auth()->user()->nama_lengkap;
-        $latestNews = News::latest()->first();
-        $news_id = $latestNews ? $latestNews->id : null;
-        $komentarData = Komentar::select('klasifikasi')->get();
-        //dd($request->all());
-        $comment->news_id = $news_id;
+        $comment->news_id = $news->id; // Menggunakan ID berita yang sesuai
         $comment->komentar = $request->input('komentar');
-        $sentiment = $this->analyzeSentiment($comment->komentar); // Analisis sentimen komentar
-        $comment->klasifikasi = $sentiment['klasifikasi'];
+        // Melakukan analisis sentimen (gunakan method analyzeSentiment jika diperlukan)
+        $sentiment = $this->analyzeSentiment($comment->komentar);
+        $comment->klasifikasi = $sentiment['klasifikasi']; // Memberikan nilai untuk kolom 'klasifikasi'
         $comment->nilaisentimen = json_encode($sentiment['scores']);
 
+        // Simpan komentar
         $comment->save();
-
-
-        //return redirect()->back()->with(compact('komentar'));
 
         return redirect()->back()->with('success', 'Komentar berhasil ditambahkan.');
     }
+
 
 
     /**

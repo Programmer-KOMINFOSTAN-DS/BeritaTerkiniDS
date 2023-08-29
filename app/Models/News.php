@@ -19,4 +19,8 @@ class News extends Model
         'deskripsi',
         'sumber'
     ];
+    public function comments()
+    {
+        return $this->hasMany(Komentar::class, 'komentars_id', 'id');
+    }
 }

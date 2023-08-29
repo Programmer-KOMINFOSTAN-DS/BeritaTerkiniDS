@@ -21,8 +21,10 @@
                 <th>No</th>
                 <th>Nama</th>
                 <th>Email</th>
-                <th>Roles</th>            
-                <th>Status</th>            
+                <th>Email Verified At</th>            
+                <th>Created At</th>           
+                <th>Roles</th>           
+                <th>Status</th>          
                 <th>Aksi</th>               
             </tr>
         </thead>
@@ -34,6 +36,8 @@
                 
                 
                 <td >{{ $value->email }}</td>
+                <td>{{ $value->email_verified_at ?? 'Not Verified' }}</td>
+                <td >{{ $value->created_at }}</td>
                 <td>{{ $value->roles }}</td>
                 <td>
                     <a href="/user/status/update/{{$value->id}}" class="btn btn-sm btn-{{ $value->status ? 'success' : 'danger' }}">

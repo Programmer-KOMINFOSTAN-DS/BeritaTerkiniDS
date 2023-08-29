@@ -35,6 +35,12 @@ Route::get('/landingpage', [GrafikdtController::class, 'showLandingPage'])->name
 Route::get('/', [GrafikdtController::class, 'showLandingPage']);
 
 
+
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
 Route::middleware(['user'])->group(function () {
     Route::get('detail/DetailBerita/{id}', function ($id) {
         $user = Auth::user();
@@ -52,10 +58,7 @@ Route::post('/postkomentar', [KomentarController::class, 'postkomentar'])->name(
 
 
 Route::middleware('admin')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     //visitor
     Route::get('/visitor', [VisitController::class, 'index'])->name('visitor.index');
     Route::get('/visitor/json', [VisitController::class, 'json'])->name('visitor.json');
@@ -85,6 +88,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/news/destroy/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
 
     Route::get('/news/json', [NewsController::class, 'json'])->name('news.json');
+    Route::post('/news/{newsId}/postkomentar', [KomentarController::class, 'postkomentar'])->name('komentar.post');
 
     //komentar
     Route::get('/komentar', [KomentarController::class, 'index'])->name('komentar.index');

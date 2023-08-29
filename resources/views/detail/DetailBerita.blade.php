@@ -41,12 +41,10 @@
     </nav>
     <!-- Navbar -->
 
-
-
     <!-- Portfolio Grid-->
     <div class="container custom-container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card custom-card custom-transpatant-card">
                     <div class="card-header">
                         <h1>{{ $news->judul }}</h1>
@@ -60,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <div class="col-md-12">
                     <div class="card custom-card">
                         <div class="p-2 text-center">
